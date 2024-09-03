@@ -1,37 +1,29 @@
 package tacos.security;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import tacos.data.UserRepository;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import tacos.MyUser;
+import tacos.data.MyUserRepository;
 
-@Controller
-@RequestMapping("/register")
+@RestController
 public class RegistrationController {
 
-
-    private UserRepository userRepo;
+    @Autowired
+    private MyUserRepository myUserRepo;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    public RegistrationController(UserRepository userRepo, PasswordEncoder passwordEncoder) {
-        this.userRepo = userRepo;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @GetMapping
-    public String registerForm() {
-        return "registration";
+    @PostMapping("/register/design")
+    public MyUser createUser(@RequestBody MyUser user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return myUserRepo.save(user);
     }
 
 
-    @PostMapping
-    public String processRegistration(RegistrationForm form) {
-        userRepo.save(form.toUser(passwordEncoder));
-        return "redirect:/login";
-    }
 
 }
