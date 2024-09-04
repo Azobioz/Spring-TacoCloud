@@ -3,23 +3,10 @@ spring:
     name: taco-cloud
   thymeleaf:
     cache: false
-  datasource:
-    url: jdbc:mysql://localhost:3306/NewUsers?createIfNotExists=true
-    username: root
-    password: root
 
-  jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
-#  security:
-#  oauth2:
-#    client:
-#    registration:
-#      facebook:
-#        clientId: <facebook client id>
-#        clientSecret: <facebook client secret>
-#        scope: <email, public_profile>
+
+
+
 
 
 
